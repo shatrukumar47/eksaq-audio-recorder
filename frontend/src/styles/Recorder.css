@@ -1,0 +1,99 @@
+.recording-container {
+  width: 400px;
+  margin: auto;
+}
+
+.recording-container > .display-timer {
+  border: 1px solid #910a67;
+  margin: 30px auto;
+  border-radius: 10px;
+  padding: 20px;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.recording-container > .button-group {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 20px;
+  margin-top: 30px;
+  margin-left: 5px;
+}
+
+.recording-container > .button-group > button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 18px;
+  font-weight: 500;
+  color: white;
+  cursor: pointer;
+  box-shadow: 2px 1px 5px white;
+  transition: all 0.3s ease-in-out;
+}
+
+.recording-container > .button-group > .start-btn {
+  background: green;
+}
+
+.recording-container > .button-group > .start-btn:hover {
+  background: rgb(1, 109, 1);
+  box-shadow: none;
+  border-radius: 7px;
+}
+.recording-container > .button-group > .stop-btn {
+  background: red;
+}
+.recording-container > .button-group > .stop-btn:hover {
+  background: rgb(216, 1, 1);
+  box-shadow: none;
+  border-radius: 7px;
+}
+
+.clear-btn-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.clear-btn-container > .clear-btn {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  font-weight: 500;
+  color: white;
+  cursor: pointer;
+  background: red;
+}
+
+.audio-output {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 30px;
+}
+
+.audio-output > button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  font-weight: 500;
+  color: white;
+  cursor: pointer;
+}
+
+.audio-output > .save-btn {
+  background: blue;
+}
+
+.audio-output > .save-btn:hover {
+  background: rgb(0, 0, 175);
+}
+
+.audio-output > .delete-btn {
+  background: red;
+}
+
+.audio-output > .delete-btn:hover {
+  background: rgb(187, 1, 1);
+}

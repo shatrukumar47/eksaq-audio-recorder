@@ -1,0 +1,9 @@
+.audio-list-container {
+  border: 1px solid green;
+  height: calc(100vh - 40px);
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 5px white;
+  background: #161a30;
+  overflow-y: auto;
+}
