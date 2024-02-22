@@ -4,7 +4,7 @@ import { formatTime } from "../utils/utils";
 import { storage } from "../firebase";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
-const Recorder = () => {
+const Recorder = ({ handleSaveAudio, isLoading, setIsLoading }) => {
   const [isRecording, setIsRecording] = useState(false);
   const [timer, setTimer] = useState(0);
   const [recordings, setRecordings] = useState([]);
@@ -20,6 +20,7 @@ const Recorder = () => {
       mediaRecorder.ondataavailable = (e) => {
         if (e.data.size > 0) {
           audioChunks.current.push(e.data);
+          console.log(audioChunks.current)
         }
       };
 
@@ -83,31 +84,38 @@ const Recorder = () => {
     };
   }, []);
 
-  const handleSaveAudio = async (blob) => {
+  const saveAudio = async (blob) => {
     try {
+      setIsLoading(true);
       const audioFirebaseRef = ref(
         storage,
         `audio/recording-${Date.now()}.wav`
       );
       await uploadBytes(audioFirebaseRef, blob);
       const downloadUrl = await getDownloadURL(audioFirebaseRef);
-      console.log("Download URL:", downloadUrl);
+      setIsLoading(false);
+      if (downloadUrl) {
+        handleSaveAudio(downloadUrl);
+      }
     } catch (error) {
+      setIsLoading(false);
       console.log("Error uploading audio:", error.message);
     }
   };
 
-  const handleClearAll = ()=>{
-    setRecordings([])
-  }
+  const handleClearAll = () => {
+    setRecordings([]);
+  };
 
   return (
     <div className="recording-container">
+      <h1 className="logo">Voice Recorder</h1>
       <div className="display-timer">
         <p>{formatTime(timer)}</p>
       </div>
       <div className="button-group">
-        {((!isRecording && mediaRecorderRef?.current?.state === "inactive") || !mediaRecorderRef?.current?.state) && (
+        {((!isRecording && mediaRecorderRef?.current?.state === "inactive") ||
+          !mediaRecorderRef?.current?.state) && (
           <button className="start-btn" onClick={startRecording}>
             Start
           </button>
@@ -132,9 +140,13 @@ const Recorder = () => {
           </button>
         )}
       </div>
-      {recordings.length > 0 && <div className="clear-btn-container">
-        <button className="clear-btn" onClick={handleClearAll}>Clear All</button>
-      </div>}
+      {recordings.length > 0 && (
+        <div className="clear-btn-container">
+          <button className="clear-btn" onClick={handleClearAll}>
+            Clear All
+          </button>
+        </div>
+      )}
       <div>
         {recordings.length > 0 &&
           recordings?.map((blob, index) => {
@@ -142,7 +154,8 @@ const Recorder = () => {
               <Audio
                 key={index}
                 blob={blob}
-                handleSaveAudio={handleSaveAudio}
+                saveAudio={saveAudio}
+                isLoading={isLoading}
               />
             );
           })}
@@ -153,13 +166,16 @@ const Recorder = () => {
 
 export default Recorder;
 
-const Audio = ({ blob, handleSaveAudio }) => {
+const Audio = ({ blob, saveAudio, isLoading }) => {
   return (
     <div className="audio-output">
       <audio src={URL.createObjectURL(blob)} controls></audio>
-      <button className="save-btn" onClick={() => handleSaveAudio(blob)}>
-        Save
-      </button>
+      {!isLoading && (
+        <button className="save-btn" onClick={() => saveAudio(blob)}>
+          &#9729;
+        </button>
+      )}
+      {isLoading && <p>Loading ...</p>}
     </div>
   );
 };

@@ -7,3 +7,46 @@
   background: #161a30;
   overflow-y: auto;
 }
+
+.audio-list-container > .audios-container {
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.single-audio-cont {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.single-audio-cont > a {
+  background: skyblue;
+  padding: 8px 20px;
+  border-radius: 5px;
+  color: black;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.single-audio-cont > a:hover {
+  background: rgb(104, 175, 203);
+}
+.single-audio-cont > button {
+  border: none;
+  background: red;
+  padding: 10px 20px;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 16px;
+}
+
+.single-audio-cont > button:hover {
+  background: rgb(233, 2, 2);
+}
+
+
