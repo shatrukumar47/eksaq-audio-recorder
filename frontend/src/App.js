@@ -4,7 +4,7 @@ import AudioList from "./components/AudioList";
 import Recorder from "./components/Recorder";
 import axios from "axios";
 
-const baseAPI = "http://localhost:8080/audio"
+const baseAPI = "https://audio-recorder-backend.onrender.com/audio"
 
 function App() {
   const [data, setData] = useState([]);
